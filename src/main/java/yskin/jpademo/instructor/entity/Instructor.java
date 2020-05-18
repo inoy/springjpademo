@@ -1,9 +1,6 @@
 package yskin.jpademo.instructor.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -22,12 +19,19 @@ public class Instructor {
     private String firstName;
 
     @Column
-    private String last_name;
+    private String lastName;
 
     @Column
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "instructor_detail_id")
-    private InstructorDetail instructorDetail;
+    @OneToOne(mappedBy = "instructor", cascade = {CascadeType.ALL})
+    @Setter
+    private InstructorDetail detail;
+
+    public Instructor(int id, String firstName, String lastName, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 }

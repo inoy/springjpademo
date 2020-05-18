@@ -1,6 +1,7 @@
 package yskin.jpademo.instructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yskin.jpademo.instructor.entity.Instructor;
@@ -27,5 +28,11 @@ public class InstructorController {
         return repoDetail.findAll();
     }
 
-
+    @PostMapping("/test")
+    public void postInstructor() {
+        Instructor i = new Instructor(-1, "お名前", "苗字", "メールアドレス");
+        i = repo.save(i);
+        InstructorDetail detail = new InstructorDetail(-1, "Youtubeチャンネル", "趣味", i);
+        repoDetail.save(detail);
+    }
 }
